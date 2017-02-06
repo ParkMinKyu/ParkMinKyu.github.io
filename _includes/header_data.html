@@ -1,0 +1,37 @@
+<meta name="google-site-verification" content="FQSB4j0D8OMPaLQmPHn4xYDLvtcYuZU8D40onshf3ks" />
+<meta charset="utf-8">
+<title>{% if page.title %}{{ page.title }} {% if page.category %} {% for category in page.category %} - {{ category }} {% endfor %} {% endif %} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="author" content="{{ site.email }}">
+<meta name="description" content="{% if page.excerpt %}{{page.title}} - {{ page.excerpt  | markdownify | strip_html | strip_newlines  | replace: '\n', ' ' | xml_escape }}{% else %}{{ site.description }}{% endif%}">
+<meta name="keywords" content="{% if page.category %} {% for category in page.category %} {{ category }}, {% endfor %} java, {% endif %}{% if page.category %} {% for tag in page.tags %} {{ tag }}, {% endfor %} javascript {% endif %}">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="{% if page.title %}{{ page.title }} {% if page.category %} {% for category in page.category %} - {{ category }} {% endfor %} {% endif %} - {{ site.title }}{% else %}{{ site.title }}{% endif %}">
+<meta property="og:url" content="{{site.url}}{{page.url}}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:description" content="{% if page.excerpt %}{{page.title}} - {{ page.excerpt  | markdownify | strip_html | strip_newlines  | replace: '\n', ' ' | xml_escape }}{% else %}{{ site.description }}{% endif%}">
+<meta property="og:image" content="{{site.url}}/Blog/favicon.png">
+<meta property="og:updated_time" content="{{page.date}}">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{% if page.title %}{{ page.title }} {% if page.category %} {% for category in page.category %} - {{ category }} {% endfor %} {% endif %} - {{ site.title }}{% else %}{{ site.title }}{% endif %}">
+<meta name="twitter:description" content="{% if page.excerpt %}{{page.title}} - {{ page.excerpt  | markdownify | strip_html | strip_newlines  | replace: '\n', ' ' | xml_escape }}{% else %}{{ site.description }}{% endif%}">
+<meta name="twitter:image" content="{{site.url}}/Blog/favicon.png">
+<meta name="twitter:creator" content="{{ site.email }}">
+
+<link rel="icon" href="/Blog/favicon.png">
+<!-- javascript lib install -->
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/lib/main.css">
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="/lib/html5shiv.min.js"></script>
+<script src="/lib/respond.min.js"></script>
+<![endif]-->
+<script src="/lib/jquery-1.11.3.min.js"></script>
+<script src="/lib/jquery-params.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/blogAPI.js"></script>

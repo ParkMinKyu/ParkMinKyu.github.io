@@ -1,0 +1,64 @@
+<div class="page-header">
+  <h5>Category</h5>
+</div>
+<div class="content">
+<div id="categories">
+</div>
+</div>
+
+<div class="page-header">
+  <h5>New Posts</h5>
+</div>
+<div class="content">
+<div id="newPosts">
+</div>
+</div>
+
+<div class="page-header">
+  <h5>Tags</h5>
+</div>
+<div class="content" style="word-break: break-all;">
+<div id="tags">
+</div>
+<a href="/tags"><span class="label label-info">more...</span></a>
+</div>
+
+<script>
+$(function(){
+$.getJSON("/search.json",function(posts){
+	var categories = new Map();
+	var tags = new Map();
+	for(var i = 0 ; i < posts.length-1 ; i ++){
+		var post = posts[i];
+		if(i < 10 )
+			$('#newPosts').append("- <a href='"+post.href+"'>"+post.title+"<small> ("+post.date.string+")</small></a><br>");
+
+      for(var k = 0 ; k < post.category.length -1 ; k ++){
+        var category = post.category[k];
+        if(categories.get(category) != null){
+            var categoryCount = parseInt(categories.get(category));
+            categories.set(category,++categoryCount);
+        }else{
+          categories.set(category,1);
+        }
+    }
+
+		if(i < 5 ){
+			for(var k = 0 ; k < post.tags.length -1 ; k ++){
+				var tag = post.tags[k];
+				if( tag != null && tags.get(tag) == null )
+					$('#tags').append('<button type="button" onclick="searchTags(\''+tag+'\')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>&nbsp;'+tag+'</button>&nbsp;');
+
+				tags.set(tag,post.href);
+			}
+		}
+	}
+
+  categories.forEach(function(value,key){
+    $('#categories').append("- <a href='#' onclick='searchCategory(\""+key+"\")'>"+ key +" <small>("+ value +")</small></a><br>");
+  })
+
+  $('button').css('margin-bottom','2px');
+});
+});
+</script>
