@@ -2,7 +2,7 @@
 layout : post
 title : 03.Python Flask Debug 모드와 라우팅
 category : [python,Flask]
-tags : ["python","flask","flask debug","flask 라우팅","flask http method"]
+tags : ["python","flask","flask debug","flask 라우팅","flask http method", "flask url_for"]
 date : 2017-02-07T10:00:00+09:00
 ---
 
