@@ -2,7 +2,7 @@
 layout : post
 title : 05.Python Flask Mysql 연동 하기
 category : [python,Flask]
-tags : ["python","flask","flask Mysql","flask PyMySQL"]
+tags : ["python","flask","flask Mysql","flask PyMySQL", "flask scheduler"]
 date : 2017-02-09T10:00:00+09:00
 temps : ["{{","}}"]
 ---

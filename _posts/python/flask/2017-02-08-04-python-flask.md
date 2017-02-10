@@ -2,7 +2,7 @@
 layout : post
 title : 04.Python Flask css,js,html 적용하기
 category : [python,Flask]
-tags : ["python","flask","flask css","flask js","flask html", "flask fullcalendar"]
+tags : ["python","flask","flask css","flask js","flask html", "flask scheduler"]
 date : 2017-02-08T10:00:00+09:00
 temps : ["{{","}}"]
 ---
