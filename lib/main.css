@@ -1,4 +1,5 @@
 @CHARSET "UTF-8";
+
 code{
   color: #4e212c;
   background-color: #e6e5cc;
@@ -157,7 +158,7 @@ body{
 	padding-top : 50px;
 	padding-bottom: 50px;
 	color : #fff;
-	background : rgb(30,33,39);
+	background : rgb(46,48,50);
 }
 
 h3 > small{
