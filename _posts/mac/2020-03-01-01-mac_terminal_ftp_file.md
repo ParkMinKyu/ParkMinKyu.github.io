@@ -2,7 +2,7 @@
 layout : post
 title : 01.Mac 터미널을 이용한 ftp파일 업로드/다운로드
 category : [mac]
-tags : ["ftp","mac terminal"]
+tags : ["ftp","mac terminal","scp"]
 date : 2020-03-01T11:20:00+09:00
 ---
 
