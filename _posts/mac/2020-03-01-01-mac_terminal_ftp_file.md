@@ -34,4 +34,12 @@ $ spc niee@host.kr:/home/niee/folder/test.txt /local
 
 //기본 ftp포트가 아닌 다른 포트를 사용할 경우
 $ spc -P 포트번호 niee@host.kr:/home/niee/folder/test.txt /local
+
+//폴더를 업/다운로드 할경우는 -r옵션
+
+//ex)폴더 다운로드
+$ spc -r niee@host.kr:/home/niee/folder/ /local
+
+//ex)폴더 
+$ spc -r /local niee@host.kr:/home/niee/folder/
 ```
