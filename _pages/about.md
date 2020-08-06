@@ -1,7 +1,8 @@
 ---
-layout: main
+layout: page
 title: About
-navigation_weight: 1
+permalink: /about
+comments: false
 ---
 
 ## NIEE WEB 개발 BLOG 입니다.
