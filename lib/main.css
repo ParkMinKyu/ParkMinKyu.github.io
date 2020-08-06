@@ -1,8 +1,8 @@
 @CHARSET "UTF-8";
 
 code{
-  color: #4e212c;
-  background-color: #e6e5cc;
+ color: #abb1aa;
+background-color: #23241f;
 }
 /**
  * Set `margin-bottom` to maintain vertical rhythm
@@ -155,10 +155,21 @@ color : #f8f8f2;  }
 
 
 body{
-	padding-top : 50px;
-	padding-bottom: 50px;
-	color : rgb(173,173,173);
-	background : rgb(46,48,50);
+    padding-top: 50px;
+    padding-bottom: 50px;
+    color:  rgb(179, 196, 212);
+    background: rgb(46,48,50);
+    font-size: 1.66em;
+    line-height: 1.6;
+    font-family: "NanumSquare", "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+h3{
+  font-size: 2em;
+}
+
+h5{
+  font-size: 1.5em;
 }
 
 h3 > small{
