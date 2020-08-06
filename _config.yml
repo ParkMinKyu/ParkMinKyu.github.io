@@ -4,7 +4,7 @@ title: "niee의 잡다한 공간입니다."
 description: "한국에서 웹 개발자로 일하고 있는 niee의 이것 저것 자료를 공유하는 공간 입니다."
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/logo.png'
-baseurl: /jekyll-theme-memoirs
+baseurl: /
 google_analytics: 'UA-51448530-12'
 disqus: 'parkminkyu-github-io'
 #mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
