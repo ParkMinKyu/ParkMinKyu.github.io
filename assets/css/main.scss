@@ -59,7 +59,6 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  overflow-x: hidden;
 }
 
 body {
@@ -72,7 +71,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.2s ease, color 0.2s ease;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 img, svg, video { max-width: 100%; height: auto; display: block; }

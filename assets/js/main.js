@@ -61,15 +61,31 @@
   // -----------------------------
   var progressEl = document.getElementById('reading-progress');
   if (progressEl) {
+    var ticking = false;
     var update = function () {
       var doc = document.documentElement;
-      var scrollTop = window.scrollY || doc.scrollTop;
-      var height = doc.scrollHeight - doc.clientHeight;
-      var pct = height > 0 ? (scrollTop / height) * 100 : 0;
+      var body = document.body;
+      var scrollTop = window.pageYOffset || doc.scrollTop || body.scrollTop || 0;
+      var docHeight = Math.max(
+        body.scrollHeight, doc.scrollHeight,
+        body.offsetHeight, doc.offsetHeight
+      );
+      var winHeight = window.innerHeight || doc.clientHeight;
+      var trackable = docHeight - winHeight;
+      var pct = trackable > 0 ? (scrollTop / trackable) * 100 : 0;
+      if (pct < 0) pct = 0;
+      if (pct > 100) pct = 100;
       progressEl.style.width = pct + '%';
+      ticking = false;
     };
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    var onScroll = function () {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
     update();
   }
 
