@@ -1,6 +1,9 @@
 {% comment %} Pick the most specific category (last one) for color/label {% endcomment %}
-{% assign primary = post.categories | last | default: post.categories | first | default: 'general' %}
-{% assign key = primary | downcase %}
+{% assign primary = 'general' %}
+{% if post.categories.size > 0 %}
+  {% assign primary = post.categories | last %}
+{% endif %}
+{% assign key = primary | downcase | strip %}
 
 {% comment %} Hue mapping for known categories, hashed fallback otherwise {% endcomment %}
 {% case key %}
