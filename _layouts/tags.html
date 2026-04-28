@@ -4,18 +4,31 @@ layout: default
 permalink: "/tags.html"
 ---
 
+<header class="page-header">
+  <h1 class="page-title">Tags</h1>
+  <p class="page-subtitle">태그로 글을 살펴보세요.</p>
+</header>
+
+<nav class="cat-cloud">
+  {% for tag in site.tags %}
+    {% assign slug = tag[0] | replace: ' ', '-' %}
+    <a href="#{{ slug }}" class="cat-chip">
+      <span>#{{ tag[0] }}</span>
+      <em>{{ tag[1] | size }}</em>
+    </a>
+  {% endfor %}
+</nav>
+
 {% for tag in site.tags %}
-<h4 class="mt-5 mb-neg-30" id="{{ tag[0] | replace: " ","-" }}"><span class="text-capitalize text-small badge badge-primary">{{ tag[0] }}</span></h4>
-<div class="blog-grid-container">
-{% assign pages_list = tag[1] %}
-{% for post in pages_list %}
-{% if post.title != null %}
-{% if group == null or group == post.group %}
-{% include postbox.html %}
-{% endif %}
-{% endif %}
-{% endfor %}
-{% assign pages_list = nil %}
-{% assign group = nil %}
-</div>
+  {% assign slug = tag[0] | replace: ' ', '-' %}
+  <section class="cat-section" id="{{ slug }}">
+    <h2 class="cat-title">#{{ tag[0] }}</h2>
+    <div class="post-grid">
+      {% for post in tag[1] %}
+        {% if post.title %}
+          {% include postbox.html %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
 {% endfor %}

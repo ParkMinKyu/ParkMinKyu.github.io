@@ -1,27 +1,40 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="icon" href="{{ site.baseurl }}/assets/images/logo.png">
 
-<title>{{ page.title }} | {{site.name}}</title>
+<title>{% if page.title %}{{ page.title }} | {{ site.name }}{% else %}{{ site.title }}{% endif %}</title>
 
 {% seo %}
+
+<script>
+  // Apply theme before paint to avoid flash
+  (function() {
+    try {
+      var saved = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = saved || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
 
 {% if site.adsense == "enabled" %}
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense-data-ad-client }}" crossorigin="anonymous"></script>
 <meta name="google-adsense-account" content="{{ site.adsense-data-ad-client }}">
 {% endif %}
 
-<link href="{{ site.baseurl }}/assets/css/prism.css" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
-<link href="{{ site.baseurl }}/assets/css/theme.css" rel="stylesheet">
-
-<script src="{{ site.baseurl }}/assets/js/jquery.min.js"></script>
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/prism.css">
 
 </head>
+<body>
 
 {% if jekyll.environment == 'production' and site.google_analytics != '' %}
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
@@ -33,122 +46,100 @@ gtag('config', '{{ site.google_analytics }}');
 </script>
 {% endif %}
 
-{% capture layout %}{% if page.layout %}layout-{{ page.layout }}{% endif %}{% endcapture %}
-<body>
-	<!-- defer loading of font and font awesome -->
-	<noscript id="deferred-styles">
-		<link href="https://fonts.googleapis.com/css?family=Sen:400,700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-	</noscript>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
 
-<!-- Begin Sidebar Navigation
-================================================== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{ site.baseurl }}/">
+      <span class="brand-mark">N</span>
+      <span class="brand-text">{{ site.name }}</span>
+    </a>
 
-<div class="sidebar">    
-</div>   
-<div class="nav-icon">
-    <div class="hamburger-bar"></div>
-</div>
-<div id="blackover-nav" class="blackover"></div>
-<nav id="menu">
-    <ul>
-        <h3>Navigation</h3>
-        <li><a href="{{ site.baseurl }}/">Home</a></li>
-        <li><a href="{{ site.baseurl }}/about">About</a></li>
-        <li><a href="{{ site.baseurl }}/contact">Contact</a></li>
-        <li><a href="{{ site.baseurl }}/privacy">Privacy Policy</a></li>
-        <li><a href="{{ site.baseurl }}/disclaimer">Disclaimer</a></li>
-    </ul>
-</nav>
+    <nav class="primary-nav" aria-label="주요 메뉴">
+      <a href="{{ site.baseurl }}/">Home</a>
+      <a href="{{ site.baseurl }}/categories.html">Categories</a>
+      <a href="{{ site.baseurl }}/tags.html">Tags</a>
+      <a href="{{ site.baseurl }}/about">About</a>
+    </nav>
 
-{% include search-lunr.html %}
-
-
-<!-- End Sidebar Navigation
-================================================== -->
-
-<div class="site-content {% if page.url == '/' %} firstpage {% endif %}">
-
-<div class="container">
-
-    <!-- Site Logo/Name
-    ================================================== -->
-   
-    <a class="navbar-brand" href="{{ site.baseurl }}/">
-        <img src="{{ site.baseurl }}/{{ site.logo }}" alt="{{ site.name }}">
-    </a>  
-   
-
-    <!-- Site Tag
-    ================================================== -->
-    {% if page.url == '/' %}
-        <p class="sitetag">
-            {{ site.description }}
-        </p>
-    {% endif %}
-
-    <!-- Content
-    ================================================== -->
-    <div class="main-content">
-        {{ content }}
+    <div class="header-actions">
+      <button id="search-toggle" class="icon-btn" aria-label="검색 열기" title="검색">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button id="theme-toggle" class="icon-btn" aria-label="다크 모드 전환" title="테마 전환">
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button id="menu-toggle" class="icon-btn menu-only-mobile" aria-label="메뉴 열기" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </div>
+  </div>
 
-    {% if site.mailchimp-list %}
-    <!-- Newsletter
-    ================================================== -->
-    <div class="newsletter text-center">
-        <span class="h4"><img src="{{ site.baseurl }}/{{ site.logo }}" class="newsletter-logo" alt="{{site.title}}"> &nbsp; Never miss a <b>story</b> from us, subscribe to our newsletter</span>
-        <form action="{{site.mailchimp-list}}" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
-            <div class="mc-field-group d-inline-flex">
-            <input type="email" placeholder="Your e-mail" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
-            <input type="submit" value="Subscribe" name="subscribe" class="heart">
-            </div>
-        </form>
-    </div>
-    {% endif %}
-    
-</div>
-
-<!-- Begin Footer
-================================================== -->
-<footer class="footer">
+  <div id="search-panel" class="search-panel" hidden>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-12 text-center text-lg-left">
-                Copyright © {{ site.time | date: "%Y" }} {{ site.name }}
-            </div>
-            <div class="col-md-6 col-sm-12 text-center text-lg-right">
-                <a href="{{ site.baseurl }}/about">About</a> &middot;
-                <a href="{{ site.baseurl }}/contact">Contact</a> &middot;
-                <a href="{{ site.baseurl }}/privacy">Privacy Policy</a> &middot;
-                <a href="{{ site.baseurl }}/disclaimer">Disclaimer</a>
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-12 text-center">
-                <small><a target="_blank" rel="noopener" href="https://www.wowthemes.net/memoirs-free-jekyll-theme/">Memoirs Jekyll Theme</a> by WowThemes.net</small>
-            </div>
-        </div>
+      <form class="search-form" onsubmit="return window.runLunrSearch(document.getElementById('lunr-input').value);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="lunr-input" type="search" placeholder="검색어를 입력하고 Enter" autocomplete="off">
+        <button type="button" class="text-btn" id="search-close">닫기</button>
+      </form>
+      <div id="lunr-results" class="search-results"></div>
     </div>
+  </div>
+
+  <nav id="mobile-menu" class="mobile-menu" hidden aria-label="모바일 메뉴">
+    <a href="{{ site.baseurl }}/">Home</a>
+    <a href="{{ site.baseurl }}/categories.html">Categories</a>
+    <a href="{{ site.baseurl }}/tags.html">Tags</a>
+    <a href="{{ site.baseurl }}/about">About</a>
+    <a href="{{ site.baseurl }}/contact">Contact</a>
+    <a href="{{ site.baseurl }}/privacy">Privacy</a>
+    <a href="{{ site.baseurl }}/disclaimer">Disclaimer</a>
+  </nav>
+</header>
+
+<main id="main" class="site-main">
+  <div class="container">
+    {{ content }}
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <p class="footer-brand">{{ site.name }}</p>
+      <p class="footer-desc">{{ site.description }}</p>
+    </div>
+    <div class="footer-col">
+      <h4>탐색</h4>
+      <a href="{{ site.baseurl }}/">Home</a>
+      <a href="{{ site.baseurl }}/categories.html">Categories</a>
+      <a href="{{ site.baseurl }}/tags.html">Tags</a>
+    </div>
+    <div class="footer-col">
+      <h4>정보</h4>
+      <a href="{{ site.baseurl }}/about">About</a>
+      <a href="{{ site.baseurl }}/contact">Contact</a>
+      <a href="{{ site.baseurl }}/privacy">Privacy Policy</a>
+      <a href="{{ site.baseurl }}/disclaimer">Disclaimer</a>
+    </div>
+    <div class="footer-col">
+      <h4>구독</h4>
+      <a href="{{ site.baseurl }}/feed.xml">RSS Feed</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <small>© {{ site.time | date: "%Y" }} {{ site.name }}. All rights reserved.</small>
+  </div>
 </footer>
-<!-- End Footer
-================================================== -->
 
-</div> <!-- /.site-content -->
-
-<!-- Scripts (if you need bootstrap.js, please add it yourself. I didn't use it for performance reasons, it was not needed in this theme)
-================================================== -->
-
+<script src="{{ site.baseurl }}/assets/js/lunr.js"></script>
+<script src="{{ site.baseurl }}/assets/js/lunrsearchengine.js"></script>
+<script src="{{ site.baseurl }}/assets/js/main.js"></script>
 <script src="{{ site.baseurl }}/assets/js/prism.js"></script>
 
-<script src="{{ site.baseurl }}/assets/js/theme.js"></script>
-
-{% if site.lazyimages == "enabled" %}
-<script src="{{ site.baseurl }}/assets/js/lazyload.js"></script>
-{% endif %}
-
 {% if page.layout == 'post' %}
-<script id="dsq-count-scr" src="//{{site.disqus}}.disqus.com/count.js"></script>
+<script id="dsq-count-scr" src="//{{ site.disqus }}.disqus.com/count.js" async></script>
 {% endif %}
 
 </body>
