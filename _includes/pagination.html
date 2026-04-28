@@ -1,25 +1,58 @@
 {% if paginator.total_pages > 1 %}
+{% assign cur = paginator.page %}
+{% assign total = paginator.total_pages %}
+{% assign window = 1 %}
+{% assign w_start = cur | minus: window %}
+{% assign w_end = cur | plus: window %}
+{% if w_start < 2 %}{% assign w_start = 2 %}{% endif %}
+{% if w_end > total | minus: 1 %}{% assign w_end = total | minus: 1 %}{% endif %}
+
 <nav class="pagination" aria-label="페이지 네비게이션">
   {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" rel="prev" aria-label="이전 페이지">‹ 이전</a>
+    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" rel="prev" aria-label="이전 페이지">‹</a>
   {% else %}
-    <span class="disabled">‹ 이전</span>
+    <span class="disabled">‹</span>
   {% endif %}
 
-  {% for page in (1..paginator.total_pages) %}
-    {% if page == paginator.page %}
+  {% comment %} First page {% endcomment %}
+  {% if cur == 1 %}
+    <span class="current" aria-current="page">1</span>
+  {% else %}
+    <a href="{{ '/' | prepend: site.baseurl | replace: '//', '/' }}">1</a>
+  {% endif %}
+
+  {% comment %} Left ellipsis {% endcomment %}
+  {% if w_start > 2 %}
+    <span class="ellipsis">…</span>
+  {% endif %}
+
+  {% comment %} Window of pages around current {% endcomment %}
+  {% for page in (w_start..w_end) %}
+    {% if page == cur %}
       <span class="current" aria-current="page">{{ page }}</span>
-    {% elsif page == 1 %}
-      <a href="{{ '/' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
     {% else %}
       <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
     {% endif %}
   {% endfor %}
 
+  {% comment %} Right ellipsis {% endcomment %}
+  {% if w_end < total | minus: 1 %}
+    <span class="ellipsis">…</span>
+  {% endif %}
+
+  {% comment %} Last page {% endcomment %}
+  {% if total > 1 %}
+    {% if cur == total %}
+      <span class="current" aria-current="page">{{ total }}</span>
+    {% else %}
+      <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', total }}">{{ total }}</a>
+    {% endif %}
+  {% endif %}
+
   {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" rel="next" aria-label="다음 페이지">다음 ›</a>
+    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" rel="next" aria-label="다음 페이지">›</a>
   {% else %}
-    <span class="disabled">다음 ›</span>
+    <span class="disabled">›</span>
   {% endif %}
 </nav>
 {% endif %}
