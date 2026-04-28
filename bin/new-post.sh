@@ -3,23 +3,29 @@
 #
 # Usage:
 #   ./bin/new-post.sh "글 제목"
-#   ./bin/new-post.sh "글 제목" python,flask     # optional category list
+#   ./bin/new-post.sh "글 제목" python,flask
+#   ./bin/new-post.sh "글 제목" python,flask "디버깅,팁,환경변수"
 #
-# The script writes _posts/YYYY-MM-DD-slug.md with just `title:` in the
-# front matter (everything else is filled in via _config.yml defaults).
+# Arguments:
+#   1. title         (required) Post title
+#   2. categories    (optional) comma-separated, e.g. python,flask
+#   3. tags          (optional) comma-separated, e.g. "tip,debug"
+#
+# The script writes _posts/YYYY-MM-DD-slug.md. Front matter that the
+# script omits will be filled in by _config.yml defaults.
 
 set -euo pipefail
 
 if [ $# -lt 1 ]; then
-  echo "Usage: $0 \"글 제목\" [category1,category2]" >&2
+  echo "Usage: $0 \"글 제목\" [category1,category2] [tag1,tag2]" >&2
   exit 1
 fi
 
 TITLE="$1"
 CATS="${2:-}"
+TAGS="${3:-}"
 DATE=$(date +%Y-%m-%d)
 
-# Slug: lowercase, replace spaces with hyphens, drop most punctuation
 SLUG=$(echo "$TITLE" \
   | tr '[:upper:]' '[:lower:]' \
   | sed -E 's/[^[:alnum:][:space:]가-힣ㄱ-ㅎㅏ-ㅣ-]+//g' \
@@ -39,11 +45,33 @@ if [ -e "$FILE" ]; then
   exit 1
 fi
 
+# Convert "a,b,c" -> [a, b, c] for YAML
+to_yaml_list() {
+  local raw="$1"
+  local IFS=','
+  local first=1
+  printf '['
+  for item in $raw; do
+    item=$(echo "$item" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')
+    [ -z "$item" ] && continue
+    if [ $first -eq 1 ]; then
+      printf '%s' "$item"
+      first=0
+    else
+      printf ', %s' "$item"
+    fi
+  done
+  printf ']'
+}
+
 {
   echo "---"
   echo "title: $TITLE"
   if [ -n "$CATS" ]; then
-    echo "category: [${CATS//,/, }]"
+    echo "category: $(to_yaml_list "$CATS")"
+  fi
+  if [ -n "$TAGS" ]; then
+    echo "tags: $(to_yaml_list "$TAGS")"
   fi
   echo "---"
   echo
@@ -52,7 +80,6 @@ fi
 
 echo "생성됨: $FILE"
 
-# Try to open in the user's editor
 if [ -n "${EDITOR:-}" ]; then
   "$EDITOR" "$FILE"
 elif command -v code >/dev/null 2>&1; then

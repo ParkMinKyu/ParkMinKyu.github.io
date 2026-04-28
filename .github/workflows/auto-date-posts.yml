@@ -1,0 +1,46 @@
+name: Auto-prefix dates on new posts
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '_posts/**.md'
+      - '_posts/**.markdown'
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Prefix today's date to posts that lack one
+        id: rename
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          changed=0
+          today=$(date -u +%Y-%m-%d)
+          for f in _posts/*.md _posts/*.markdown; do
+            base=$(basename "$f")
+            if [[ ! "$base" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}- ]]; then
+              new="_posts/${today}-${base}"
+              git mv "$f" "$new"
+              echo "renamed: $f -> $new"
+              changed=1
+            fi
+          done
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push if anything was renamed
+        if: steps.rename.outputs.changed == '1'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore(posts): auto-prefix date to undated posts'
+          git push
