@@ -1,25 +1,25 @@
 {% if paginator.total_pages > 1 %}
-<div class="pagination">
+<nav class="pagination" aria-label="페이지 네비게이션">
   {% if paginator.previous_page %}
-    <a class="ml-1 mr-1" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo; </a>
+    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" rel="prev" aria-label="이전 페이지">‹ 이전</a>
   {% else %}
-    <span>&laquo; </span>
+    <span class="disabled">‹ 이전</span>
   {% endif %}
 
   {% for page in (1..paginator.total_pages) %}
     {% if page == paginator.page %}
-      <span class="ml-1 mr-1">{{ page }}</span>
+      <span class="current" aria-current="page">{{ page }}</span>
     {% elsif page == 1 %}
-      <a class="ml-1 mr-1" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
+      <a href="{{ '/' | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
     {% else %}
-      <a class="ml-1 mr-1" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+      <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
     {% endif %}
   {% endfor %}
 
   {% if paginator.next_page %}
-    <a class="ml-1 mr-1" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"> &raquo;</a>
+    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" rel="next" aria-label="다음 페이지">다음 ›</a>
   {% else %}
-    <span> &raquo;</span>
+    <span class="disabled">다음 ›</span>
   {% endif %}
-</div>
+</nav>
 {% endif %}

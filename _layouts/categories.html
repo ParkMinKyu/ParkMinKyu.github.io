@@ -4,19 +4,31 @@ layout: default
 permalink: "/categories.html"
 ---
 
+<header class="page-header">
+  <h1 class="page-title">Categories</h1>
+  <p class="page-subtitle">주제별로 모아 본 글 목록입니다.</p>
+</header>
+
+<nav class="cat-cloud">
+  {% for category in site.categories %}
+    {% assign slug = category[0] | downcase | replace: ' ', '-' %}
+    <a href="#{{ slug }}" class="cat-chip">
+      <span>{{ category[0] }}</span>
+      <em>{{ category[1] | size }}</em>
+    </a>
+  {% endfor %}
+</nav>
 
 {% for category in site.categories %}
-<h4 class="mt-5 mb-neg-30" id="{{ category[0] | replace: " ","-" }}"><span class="text-capitalize badge badge-primary text-small">{{ category[0] }}</span></h4>
-<div class="blog-grid-container">
-{% assign pages_list = category[1] %}
-{% for post in pages_list %}
-{% if post.title != null %}
-{% if group == null or group == post.group %}
-{% include postbox.html %}
-{% endif %}
-{% endif %}
-{% endfor %}
-{% assign pages_list = nil %}
-{% assign group = nil %}
-</div>
+  {% assign slug = category[0] | downcase | replace: ' ', '-' %}
+  <section class="cat-section" id="{{ slug }}">
+    <h2 class="cat-title">{{ category[0] }}</h2>
+    <div class="post-grid">
+      {% for post in category[1] %}
+        {% if post.title %}
+          {% include postbox.html %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
 {% endfor %}
