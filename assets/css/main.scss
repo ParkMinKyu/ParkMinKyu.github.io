@@ -393,11 +393,32 @@ pre code {
   aspect-ratio: 16 / 9;
   background: linear-gradient(135deg, var(--accent-soft), transparent);
   display: flex; align-items: center; justify-content: center;
-  color: var(--accent);
+  color: #fff;
   font-weight: 800;
-  font-size: 1.6rem;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+  position: relative;
+  overflow: hidden;
 }
-.post-card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.post-card-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.18) 0, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(0,0,0,0.18) 0, transparent 50%);
+  pointer-events: none;
+}
+.post-card-thumb img {
+  width: 100%; height: 100%; object-fit: cover;
+  position: relative; z-index: 1;
+}
+.post-card-initials {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  font-feature-settings: "tnum" 1;
+}
 
 .post-card-body { padding: 18px 20px 16px; flex: 1; display: flex; flex-direction: column; }
 .post-card-cats {

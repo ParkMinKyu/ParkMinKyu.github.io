@@ -1,6 +1,17 @@
+{% comment %} Deterministic color seed derived from title + url + date {% endcomment %}
+{% assign t_len = post.title | size %}
+{% assign u_len = post.url | size %}
+{% assign d_day = post.date | date: '%j' | plus: 0 %}
+{% assign d_yr = post.date | date: '%y' | plus: 0 %}
+{% assign seed = t_len | times: 53 | plus: u_len | times: 11 | plus: d_day | times: 7 | plus: d_yr %}
+{% assign hue = seed | modulo: 360 %}
+{% assign hue2 = hue | plus: 35 | modulo: 360 %}
+{% assign angle = seed | modulo: 8 | times: 22 | plus: 130 %}
+{% assign initials = post.title | strip | slice: 0, 2 | upcase %}
+
 <article class="post-card">
   <a href="{{ site.baseurl }}{{ post.url }}" aria-label="{{ post.title }}">
-    <div class="post-card-thumb">
+    <div class="post-card-thumb"{% unless post.image %} style="background:linear-gradient({{ angle }}deg, hsl({{ hue }}, 68%, 58%), hsl({{ hue2 }}, 72%, 44%));"{% endunless %}>
       {% if post.image %}
         {% if post.image contains "://" %}
           <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
@@ -8,7 +19,7 @@
           <img src="{{ site.baseurl }}/{{ post.image }}" alt="{{ post.title }}" loading="lazy">
         {% endif %}
       {% else %}
-        {{ post.title | slice: 0, 1 | upcase }}
+        <span class="post-card-initials">{{ initials }}</span>
       {% endif %}
     </div>
     <div class="post-card-body">
