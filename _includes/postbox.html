@@ -1,17 +1,33 @@
-{% comment %} Deterministic color seed derived from title + url + date {% endcomment %}
-{% assign t_len = post.title | size %}
-{% assign u_len = post.url | size %}
-{% assign d_day = post.date | date: '%j' | plus: 0 %}
-{% assign d_yr = post.date | date: '%y' | plus: 0 %}
-{% assign seed = t_len | times: 53 | plus: u_len | times: 11 | plus: d_day | times: 7 | plus: d_yr %}
-{% assign hue = seed | modulo: 360 %}
-{% assign hue2 = hue | plus: 35 | modulo: 360 %}
-{% assign angle = seed | modulo: 8 | times: 22 | plus: 130 %}
-{% assign initials = post.title | strip | slice: 0, 2 | upcase %}
+{% comment %} Pick the most specific category (last one) for color/label {% endcomment %}
+{% assign primary = post.categories | last | default: post.categories | first | default: 'general' %}
+{% assign key = primary | downcase %}
+
+{% comment %} Hue mapping for known categories, hashed fallback otherwise {% endcomment %}
+{% case key %}
+  {% when 'design-patterns' %}{% assign hue = 278 %}
+  {% when 'refactoring' %}{% assign hue = 22 %}
+  {% when 'spring-security' %}{% assign hue = 142 %}
+  {% when 'spring-camp' %}{% assign hue = 158 %}
+  {% when 'mongodb' %}{% assign hue = 100 %}
+  {% when 'python' %}{% assign hue = 48 %}
+  {% when 'flask' %}{% assign hue = 32 %}
+  {% when 'angular2' %}{% assign hue = 358 %}
+  {% when 'docker' %}{% assign hue = 205 %}
+  {% when 'jekyll' %}{% assign hue = 340 %}
+  {% when 'mac' %}{% assign hue = 200 %}
+  {% when 'study' %}{% assign hue = 225 %}
+  {% else %}
+    {% assign k_size = key | size %}
+    {% assign hue = k_size | times: 47 | plus: 17 | modulo: 360 %}
+{% endcase %}
+
+{% assign hue2 = hue | plus: 32 | modulo: 360 %}
+{% assign angle = key | size | times: 13 | modulo: 8 | times: 22 | plus: 130 %}
+{% assign display_cat = primary | replace: '-', ' ' | upcase %}
 
 <article class="post-card">
   <a href="{{ site.baseurl }}{{ post.url }}" aria-label="{{ post.title }}">
-    <div class="post-card-thumb"{% unless post.image %} style="background:linear-gradient({{ angle }}deg, hsl({{ hue }}, 68%, 58%), hsl({{ hue2 }}, 72%, 44%));"{% endunless %}>
+    <div class="post-card-thumb"{% unless post.image %} style="background:linear-gradient({{ angle }}deg, hsl({{ hue }}, 68%, 56%), hsl({{ hue2 }}, 72%, 42%));"{% endunless %}>
       {% if post.image %}
         {% if post.image contains "://" %}
           <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
@@ -19,7 +35,7 @@
           <img src="{{ site.baseurl }}/{{ post.image }}" alt="{{ post.title }}" loading="lazy">
         {% endif %}
       {% else %}
-        <span class="post-card-initials">{{ initials }}</span>
+        <span class="post-card-cat-label">{{ display_cat }}</span>
       {% endif %}
     </div>
     <div class="post-card-body">
