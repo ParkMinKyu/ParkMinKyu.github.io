@@ -39,9 +39,23 @@ jekyll-archives:
   permalinks:
     category: '/category/:name/'
     
-# Pagination 
+# Pagination
 paginate: 6
 paginate_path: /page:num/
+
+# Front matter defaults (so new posts only need `title:`)
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "niee"
+  - scope:
+      path: "_pages"
+      type: "pages"
+    values:
+      layout: "page"
     
 # Other
 highlighter: none
