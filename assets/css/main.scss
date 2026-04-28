@@ -181,13 +181,15 @@ pre code {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: saturate(180%) blur(12px);
   -webkit-backdrop-filter: saturate(180%) blur(12px);
   border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.02);
 }
 [data-theme="dark"] .site-header {
-  background: rgba(15, 17, 21, 0.8);
+  background: rgba(15, 17, 21, 0.85);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
 
 .header-inner {
@@ -201,6 +203,7 @@ pre code {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  margin-right: auto;
   font-weight: 700;
   font-size: 1.05rem;
   color: var(--text);
@@ -220,7 +223,6 @@ pre code {
 .primary-nav {
   display: flex;
   gap: 4px;
-  margin-left: auto;
 }
 .primary-nav a {
   padding: 8px 12px;
@@ -662,6 +664,7 @@ pre code {
   margin: 0;
   text-align: center;
 }
+.ad-slot::before { content: none !important; }
 .ad-slot ins.adsbygoogle[data-ad-status="unfilled"],
 .ad-slot ins.adsbygoogle:empty {
   display: none !important;
