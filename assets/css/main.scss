@@ -657,21 +657,17 @@ pre code {
 }
 #comments { display: none; margin-top: 16px; }
 
-/* Ad slot */
+/* Ad slot — collapses to ~0 height when AdSense doesn't fill */
 .ad-slot {
-  margin: 24px 0;
-  padding: 8px 0;
+  margin: 0;
   text-align: center;
-  min-height: 100px;
 }
-.ad-slot::before {
-  content: 'Advertisement';
-  display: block;
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
+.ad-slot ins.adsbygoogle[data-ad-status="unfilled"],
+.ad-slot ins.adsbygoogle:empty {
+  display: none !important;
+}
+.ad-slot:has(ins[data-ad-status="filled"]) {
+  margin: 24px 0;
 }
 
 /* =========================================================
