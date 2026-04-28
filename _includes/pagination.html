@@ -2,10 +2,11 @@
 {% assign cur = paginator.page %}
 {% assign total = paginator.total_pages %}
 {% assign window = 1 %}
+{% assign max_w_end = total | minus: 1 %}
 {% assign w_start = cur | minus: window %}
 {% assign w_end = cur | plus: window %}
 {% if w_start < 2 %}{% assign w_start = 2 %}{% endif %}
-{% if w_end > total | minus: 1 %}{% assign w_end = total | minus: 1 %}{% endif %}
+{% if w_end > max_w_end %}{% assign w_end = max_w_end %}{% endif %}
 
 <nav class="pagination" aria-label="페이지 네비게이션">
   {% if paginator.previous_page %}
@@ -26,21 +27,23 @@
     <span class="ellipsis">…</span>
   {% endif %}
 
-  {% comment %} Window of pages around current {% endcomment %}
-  {% for page in (w_start..w_end) %}
-    {% if page == cur %}
-      <span class="current" aria-current="page">{{ page }}</span>
-    {% else %}
-      <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
-    {% endif %}
-  {% endfor %}
+  {% comment %} Window of pages around current (excludes 1 and total) {% endcomment %}
+  {% if w_end >= w_start %}
+    {% for page in (w_start..w_end) %}
+      {% if page == cur %}
+        <span class="current" aria-current="page">{{ page }}</span>
+      {% else %}
+        <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 
   {% comment %} Right ellipsis {% endcomment %}
-  {% if w_end < total | minus: 1 %}
+  {% if w_end < max_w_end %}
     <span class="ellipsis">…</span>
   {% endif %}
 
-  {% comment %} Last page {% endcomment %}
+  {% comment %} Last page (only if different from first) {% endcomment %}
   {% if total > 1 %}
     {% if cur == total %}
       <span class="current" aria-current="page">{{ total }}</span>
