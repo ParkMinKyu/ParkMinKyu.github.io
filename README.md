@@ -11,7 +11,13 @@
 ```bash
 ./bin/new-post.sh "글 제목"
 ./bin/new-post.sh "Python Flask 시작하기" python,flask
+./bin/new-post.sh "Flask 디버깅 팁" python,flask "tip,debug"
 ```
+
+인자:
+1. 제목 (필수)
+2. 카테고리 콤마 구분 (선택)
+3. 태그 콤마 구분 (선택)
 
 스크립트가 `_posts/YYYY-MM-DD-slug.md`를 생성하고 에디터를 열어줍니다.
 이후 본문을 쓰고 `git add . && git commit -m "..." && git push`.
@@ -39,7 +45,11 @@ title: 글 제목
 ```
 
 `author`, `layout`, `date`(파일명에서 자동)는 `_config.yml`의 defaults에서
-자동 채워지므로 적지 않아도 됩니다. 카테고리/태그가 필요하면 다음을 추가:
+자동 채워지므로 적지 않아도 됩니다.
+
+**카테고리와 태그는 모두 선택**입니다. 안 적으면 그 글은 카테고리/태그
+페이지에 등장하지 않을 뿐 글 자체는 정상 게시됩니다. 분류하고 싶을 때만
+다음 줄을 추가하세요:
 
 ```markdown
 ---
