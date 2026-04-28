@@ -16,12 +16,17 @@
 스크립트가 `_posts/YYYY-MM-DD-slug.md`를 생성하고 에디터를 열어줍니다.
 이후 본문을 쓰고 `git add . && git commit -m "..." && git push`.
 
-### 2. GitHub 웹에서 바로 만들기
+### 2. GitHub 웹에서 바로 만들기 (날짜도 자동)
 
 1. https://github.com/ParkMinKyu/ParkMinKyu.github.io 접속
 2. `_posts/` 폴더 → **Add file** → **Create new file**
-3. 파일명: `2026-04-28-내-글-제목.md`
-4. 아래 템플릿 붙여넣고 작성 후 **Commit changes**.
+3. 파일명에 **날짜 없이** 그냥 제목만 적기: 예) `flask-debug-tips.md`
+4. 본문 작성 → **Commit changes**
+
+푸시되면 GitHub Actions가 자동으로 파일명 앞에 오늘 날짜를 붙여
+`2026-04-28-flask-debug-tips.md` 형태로 정리합니다. (`.github/workflows/auto-date-posts.yml`)
+
+날짜를 직접 지정하고 싶으면 `2026-05-01-제목.md` 처럼 그대로 적어도 됩니다.
 
 ## 최소 front matter
 
