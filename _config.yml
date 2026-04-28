@@ -1,11 +1,12 @@
 # Site
 name: "niee"
 title: "niee의 잡다한 공간입니다."
-description: "개발 관련 정보 공유"
+description: "웹/앱 개발, 디자인 패턴, 리팩토링, Spring, Python, Docker, Angular 등 실무에서 정리한 개발 노트를 공유하는 블로그입니다."
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/logo.png'
-baseurl: /
-google_analytics: 'UA-51448530-12'
+url: "https://parkminkyu.github.io"
+baseurl: ""
+google_analytics: ''
 disqus: 'parkminkyu-github-io'
 #mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
 include: ["_pages"]
