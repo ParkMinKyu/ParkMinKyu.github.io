@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "kr.dogs.friends",
+    "sha256_cert_fingerprints":
+    ["F8:80:37:51:42:61:F3:3E:D5:26:C1:04:56:B9:DD:AC:1A:CB:BE:02:D9:59:E8:26:83:2B:12:18:DB:A8:FB:1B"]
+  }
+}]
