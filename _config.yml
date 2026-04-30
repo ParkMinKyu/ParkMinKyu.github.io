@@ -9,7 +9,7 @@ baseurl: ""
 google_analytics: 'G-JS664Z0C00'
 disqus: 'parkminkyu-github-io'
 #mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
-include: ["_pages"]
+include: ["_pages", ".well-known"]
 permalink: /:title/
 email: smartmingue@gmail.com
 
