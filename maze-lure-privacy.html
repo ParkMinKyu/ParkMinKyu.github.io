@@ -22,6 +22,9 @@
   li { margin: 4px 0; }
   .box { background: #faf8f3; border: 1px solid #eee8db; border-radius: 8px;
          padding: 16px 20px; margin: 16px 0; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid #e2ddd2; padding: 8px 12px; text-align: left; vertical-align: top; }
+  th { background: #faf8f3; white-space: nowrap; }
   a { color: #a8852e; }
   .foot { margin-top: 36px; padding-top: 20px; border-top: 1px solid #eee8db;
           color: #857f6e; font-size: 13px; }
@@ -31,58 +34,94 @@
 <body>
 <div class="doc">
   <h1>개인정보처리방침</h1>
-  <div class="sub">길치 용사 키우기 (Maze Lure) · 시행일: 2026년 7월 23일</div>
+  <div class="sub">길치 용사 키우기 (Maze Lure) · 개발자: niee · 제정 2026년 7월 23일 · 개정 2026년 8월 10일</div>
 
   <div class="box">
-    <strong>요약:</strong> 「길치 용사 키우기」는 어떠한 개인정보도 수집·저장·전송하지 않습니다.
-    모든 게임 데이터는 이용자의 기기 안에만 저장됩니다.
+    요약: 게임의 모든 콘텐츠는 <b>로그인 없이</b> 이용할 수 있습니다.
+    클라우드 백업·랭킹 참여 시에만 이메일 계정이 사용되며, 광고·외부 분석 SDK는 포함하지 않습니다.
+    수집한 정보는 아래 목적 외로 사용하거나 제3자에게 제공하지 않습니다.
   </div>
 
-  <h2>1. 수집하는 개인정보</h2>
-  <p>본 앱은 개인정보를 <strong>일절 수집하지 않습니다.</strong></p>
+  <h2>1. 수집하는 개인정보와 목적·보유 기간</h2>
+  <table>
+    <tr><th>항목</th><th>수집 시점</th><th>목적</th><th>보유 기간</th></tr>
+    <tr><td>이메일 주소·비밀번호</td><td>클라우드 계정 가입 시 (선택)</td>
+        <td>계정 생성·로그인, 세이브 백업/복원</td><td>계정 삭제 시 즉시 파기</td></tr>
+    <tr><td>닉네임</td><td>랭킹 등록 시 (선택)</td>
+        <td>순위표 표시</td><td>계정 삭제 시 즉시 파기</td></tr>
+    <tr><td>사용자 식별자 (계정 uid·앱 생성 ID)</td><td>계정 생성·앱 이용 시 자동</td>
+        <td>계정 관리, 이용 통계</td><td>계정 삭제 시 파기 (통계용 식별자는 개인 비식별)</td></tr>
+    <tr><td>구매 기록 (주문번호·상품·구매 시각·기기 모델)</td><td>유료 결제 시</td>
+        <td>구매 복구·지급 보장, 환불 대조, 부정 이용 방지</td>
+        <td>전자상거래법에 따라 5년 보관 후 파기</td></tr>
+    <tr><td>게임 이용 기록 (레벨 진행·접속 등 플레이 이벤트)</td><td>앱 이용 시 자동</td>
+        <td>서비스 개선을 위한 통계 분석 (개인 식별 목적으로 사용하지 않음)</td><td>통계 목적 달성 시 파기</td></tr>
+    <tr><td>부정 이용 기록 (이용 제한 이력)</td><td>이용 제한 시</td>
+        <td>부정 이용 재발 방지</td><td>목적 달성 시 파기</td></tr>
+  </table>
+  <p>비밀번호는 Google 인증 서버(Firebase Authentication)에 암호화되어 보관되며, 개발자는 열람할 수 없습니다.
+  결제 수단(카드 정보 등)은 Google Play가 처리하며 개발자는 수집·접근하지 않습니다.</p>
+
+  <h2>2. 처리 위탁 및 국외 이전</h2>
+  <p>수집된 정보는 서비스 운영을 위해 아래 사업자의 클라우드 인프라에 저장됩니다.</p>
+  <table>
+    <tr><th>수탁자</th><th>이전 항목</th><th>이전 국가·시점</th><th>보유 기간</th></tr>
+    <tr><td>Google LLC (Firebase Authentication·Cloud Firestore)</td>
+        <td>1항의 수집 항목 전체</td>
+        <td>미국 등 Google 클라우드 리전 · 서비스 이용 시 네트워크 전송</td>
+        <td>1항의 보유 기간과 동일</td></tr>
+    <tr><td>Google LLC (Google Play 결제)</td><td>결제 처리 정보</td>
+        <td>Google Play 인프라 · 결제 시</td><td>Google Play 정책에 따름</td></tr>
+  </table>
+
+  <h2>3. 제3자 제공</h2>
+  <p>수집한 개인정보를 제3자에게 제공하지 않습니다. 광고 SDK·외부 분석(애널리틱스) SDK를 포함하지 않습니다.
+  랭킹에 등록한 닉네임과 기록은 게임 기능으로서 다른 이용자에게 표시됩니다.</p>
+
+  <h2>4. 기기 내 저장 데이터</h2>
+  <p>게임 진행 데이터(레벨·장비·재화 등)는 기본적으로 이용자 기기 안에 저장되며,
+  앱을 삭제하면 함께 삭제됩니다. 클라우드 백업을 사용한 경우에만 서버 사본이 보관됩니다.</p>
+
+  <h2>5. 파기 절차 및 이용자의 권리</h2>
   <ul>
-    <li>회원가입·로그인 기능이 없습니다.</li>
-    <li>이름, 이메일, 전화번호, 위치정보 등 어떠한 개인정보도 요구하지 않습니다.</li>
-    <li>광고 SDK, 분석(애널리틱스) SDK 등 제3자 데이터 수집 도구를 포함하지 않습니다.</li>
+    <li>게임 내 <b>구름(클라우드) 버튼 → 계정 삭제</b>로 언제든 계정과 서버 데이터(세이브·랭킹 기록)를 즉시 삭제할 수 있습니다.
+        자세한 절차는 <a href="maze-lure-delete.html">계정 삭제 안내</a>를 참고해 주세요.</li>
+    <li>법령에 따라 보관이 필요한 정보(구매 기록)는 해당 기간 보관 후 지체 없이 파기합니다.</li>
+    <li>열람·정정 등 기타 요청은 아래 문의처로 연락 주시면 확인 후 처리합니다.</li>
   </ul>
 
-  <h2>2. 게임 데이터의 저장</h2>
+  <h2>6. 아동의 개인정보</h2>
+  <p>만 14세 미만 아동의 개인정보를 고의로 수집하지 않습니다. 아동이 보호자 동의 없이
+  계정을 생성한 사실이 확인되면 지체 없이 삭제합니다.</p>
+
+  <h2>7. 앱 권한</h2>
   <ul>
-    <li>게임 진행 데이터(레벨, 장비, 재화 등)는 <strong>이용자 기기 내부에만</strong> 저장됩니다.</li>
-    <li>개발자를 포함한 외부로 전송되지 않으며, 개발자는 이용자의 게임 데이터에 접근할 수 없습니다.</li>
-    <li>앱을 삭제하면 게임 데이터도 함께 삭제됩니다.</li>
+    <li>인터넷(INTERNET): 클라우드 백업·랭킹·이용 통계·결제 처리·게임 내 도움말 표시에 사용됩니다.</li>
   </ul>
 
-  <h2>3. 앱 권한</h2>
-  <ul>
-    <li><strong>인터넷(INTERNET):</strong> 게임 내 도움말(도감) 표시와 커뮤니티 링크(디스코드)를
-        브라우저로 여는 용도로만 사용됩니다. 이 과정에서 어떠한 데이터도 외부로 전송되지 않습니다.</li>
-  </ul>
+  <h2>8. 외부 링크</h2>
+  <p>게임 내 디스코드 버튼은 외부 서비스(Discord)로 연결되며, 외부 서비스 이용 시에는
+  해당 서비스의 개인정보처리방침이 적용됩니다.</p>
 
-  <h2>4. 외부 링크</h2>
-  <p>게임 내 디스코드 버튼은 외부 서비스(Discord)로 연결됩니다. 외부 서비스 이용 시에는
-     해당 서비스의 개인정보처리방침이 적용됩니다.</p>
+  <h2>9. 방침의 변경</h2>
+  <p>본 방침이 변경되는 경우 이 페이지를 통해 고지하며, 변경된 방침은 고지 시점부터 적용됩니다.</p>
 
-  <h2>5. 아동의 개인정보</h2>
-  <p>본 앱은 개인정보를 수집하지 않으므로, 아동의 개인정보 또한 수집하지 않습니다.</p>
-
-  <h2>6. 개인정보처리방침의 변경</h2>
-  <p>본 방침이 변경되는 경우(예: 정식 버전에서 클라우드 저장·랭킹 기능 추가 시)
-     이 페이지를 통해 변경 내용을 고지하며, 변경된 방침은 고지 시점부터 적용됩니다.</p>
-
-  <h2>7. 문의</h2>
-  <p>개인정보 관련 문의는 아래 연락처로 보내주세요.</p>
+  <h2>10. 문의 (개인정보 보호책임자)</h2>
   <ul>
     <li>개발자: niee</li>
     <li>이메일: <a href="mailto:smartmingue@gmail.com">smartmingue@gmail.com</a></li>
   </ul>
 
   <div class="foot">
-    Privacy Policy (English summary): "Maze Lure" does not collect, store, or transmit any personal
-    data. All game data is stored locally on your device only and is deleted when the app is
-    uninstalled. The INTERNET permission is used solely to display the in-game help page and to open
-    the community link in a browser. No advertising or analytics SDKs are included.
-    Contact: smartmingue@gmail.com
+    Privacy Policy (English summary): "Maze Lure" can be played fully without an account.
+    If you opt in to cloud backup / rankings, we collect an email address, nickname, and user
+    identifiers via Google Firebase (stored on Google Cloud infrastructure, e.g. in the U.S.).
+    Purchase records (order id, product, timestamp, device model) are kept for 5 years as required
+    by Korean e-commerce law; payment instruments are processed by Google Play and never reach the
+    developer. Gameplay events are collected for aggregate analytics only. No advertising or
+    third-party analytics SDKs are included, and no data is shared with third parties. You can
+    delete your account and server data at any time in-game (Cloud → Delete Account) — see the
+    <a href="maze-lure-delete.html">account deletion guide</a>. Contact: smartmingue@gmail.com
   </div>
 </div>
 </body>
