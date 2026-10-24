@@ -8,3 +8,4 @@ User-agent: *
 Allow: /
 
 Sitemap: {{ site.url }}{{ site.baseurl }}/sitemap.xml
+Sitemap: https://parkminkyu.github.io/mazelure/sitemap.xml
